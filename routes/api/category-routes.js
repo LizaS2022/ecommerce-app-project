@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../seeds/models');
+const { Console } = require('console');
+const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
@@ -11,7 +12,10 @@ router.get('/',async (req, res) => {
     const categoryData = await Category.findAll({
       include: [{ model: Product }],
     });
+    
     res.status(200).json(categoryData);
+    console.log(categoryData);
+    
   } catch (err) {
     res.status(500).json(err);
   }
@@ -31,7 +35,7 @@ router.get('/:id',async (req, res) => {
       return;
     }
 
-    res.status(200).json(categorySingleData );
+    res.status(200).json(categorySingleData);
   } catch (err) {
     res.status(500).json(err);
   }
